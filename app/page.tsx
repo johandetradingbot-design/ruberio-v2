@@ -41,7 +41,7 @@ const steps = [
 ];
 
 export default function Home() {
-  const lineRefs = useRef<Array<HTMLHeadingElement | null>>([]);
+  const lineRefs = useRef<Array<HTMLElement | null>>([]);
   const subtitleRef = useRef<HTMLParagraphElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
@@ -72,7 +72,7 @@ export default function Home() {
       if (!panelRef.current) return;
 
       const panelTranslate = Math.max(0, window.innerHeight - window.scrollY * 1.5);
-      panelRef.current.style.transform = `translateY(${panelTranslate}px)`;
+      panelRef.current.style.transform = `translate3d(0, ${panelTranslate}px, 0) translateZ(0)`;
     };
 
     updatePanel();
@@ -88,7 +88,10 @@ export default function Home() {
   return (
     <main className="bg-black text-white font-mono font-[var(--font-mono)]">
       <section className="relative h-[300vh] bg-black">
-        <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
+        <div
+          className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden"
+          style={{ transform: "translateZ(0)", willChange: "transform", backfaceVisibility: "hidden" }}
+        >
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <span className="font-syne font-[var(--font-syne)] text-[30vw] font-extrabold -rotate-12 select-none opacity-[0.03]">
               BUILD OR DIE.
@@ -102,21 +105,21 @@ export default function Home() {
                   lineRefs.current[0] = node;
                 }}
                 className="font-syne font-[var(--font-syne)] text-[14vw] md:text-[12vw] font-extrabold leading-[0.85] tracking-[-0.04em] uppercase text-white"
-                style={{ transform: "translateY(100%)" }}
+                style={{ transform: "translateY(100%)", willChange: "transform" }}
               >
                 GEEN TEMPLATES.
               </h1>
             </div>
             <div className="overflow-hidden">
-              <h1
+              <p
                 ref={(node) => {
                   lineRefs.current[1] = node;
                 }}
                 className="font-syne font-[var(--font-syne)] text-[14vw] md:text-[12vw] font-extrabold leading-[0.85] tracking-[-0.04em] uppercase text-[#ff3300]"
-                style={{ transform: "translateY(100%)" }}
+                style={{ transform: "translateY(100%)", willChange: "transform" }}
               >
                 GEEN EXCUSES.
-              </h1>
+              </p>
             </div>
             <p
               ref={subtitleRef}
@@ -130,7 +133,11 @@ export default function Home() {
           <div
             ref={panelRef}
             className="fixed bottom-0 left-0 z-20 h-screen w-full border-t-[20px] border-[#ff3300] bg-white text-black"
-            style={{ transform: "translateY(100vh)" }}
+            style={{
+              transform: "translate3d(0, 100vh, 0) translateZ(0)",
+              willChange: "transform",
+              backfaceVisibility: "hidden",
+            }}
           >
             <div className="grid h-full grid-cols-1 gap-8 p-8 md:grid-cols-12 md:p-16">
               <div className="col-span-8 flex flex-col justify-end pb-20">
@@ -169,7 +176,7 @@ export default function Home() {
           {services.map((service) => (
             <div
               key={service.title}
-              className="relative border border-white/10 p-8 transition-transform duration-300 hover:-translate-y-2"
+              className="relative border border-white/10 p-8 transition-transform duration-300 hover:-translate-y-2 [will-change:transform]"
             >
               <div className="absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 border-[#ff3300]" />
               <div className="absolute right-0 bottom-0 h-4 w-4 border-r-2 border-b-2 border-[#ff3300]" />

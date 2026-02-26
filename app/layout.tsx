@@ -7,34 +7,47 @@ import "./globals.css";
 const syne = Syne({
   subsets: ["latin"],
   weight: ["400", "700", "800"],
+  preload: true,
   variable: "--font-syne",
 });
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
+  preload: true,
   variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-  title: "RUBERIO — High-End Webdesign Bureau Brabant",
+  title: "RUBERIO — High-End Webdesign Bureau | Brabant",
   description:
     "Geen templates. Geen excuses. Ruberio bouwt high-end websites die converteren. Webdesign bureau gevestigd in Brabant.",
+  robots: "index, follow",
+  openGraph: {
+    title: "RUBERIO — High-End Webdesign Bureau | Brabant",
+    description: "Geen templates. Geen excuses. Ruberio bouwt high-end websites die converteren.",
+    url: "https://ruberio.nl",
+    type: "website",
+    locale: "nl_NL",
+  },
+  alternates: {
+    canonical: "https://ruberio.nl",
+  },
 };
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "RUBERIO",
-  description:
-    "Geen templates. Geen excuses. Ruberio bouwt high-end websites die converteren.",
-  areaServed: "Brabant, Nederland",
+  name: "Ruberio",
+  description: "High-end webdesign bureau gevestigd in Brabant",
+  url: "https://ruberio.nl",
   address: {
     "@type": "PostalAddress",
-    addressRegion: "Noord-Brabant",
+    addressRegion: "Brabant",
     addressCountry: "NL",
   },
-  url: "https://ruberio.nl",
+  areaServed: "NL",
+  serviceType: ["Webdesign", "SEO Content", "Website Onderhoud"],
 };
 
 export default function RootLayout({
@@ -52,9 +65,12 @@ export default function RootLayout({
       </head>
       <body className="bg-black text-white antialiased font-mono">
         <CustomCursor />
-        <Nav />
+        <header>
+          <Nav />
+        </header>
         <div className="noise-overlay" />
         {children}
+        <footer className="sr-only">Ruberio webdesign bureau gevestigd in Brabant.</footer>
       </body>
     </html>
   );

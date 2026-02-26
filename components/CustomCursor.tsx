@@ -47,6 +47,7 @@ export default function CustomCursor() {
         style={{
           willChange: "transform",
           transform: "translate3d(-100px, -100px, 0) translateZ(0)",
+          backfaceVisibility: "hidden",
         }}
       />
       <div
@@ -55,6 +56,7 @@ export default function CustomCursor() {
         style={{
           willChange: "transform",
           transform: "translate3d(-100px, -100px, 0) translateZ(0)",
+          backfaceVisibility: "hidden",
         }}
       />
     </>

@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 const projects = [
   { number: "01", name: "VELDT INSTALLATIES", sector: "Installatiebedrijf" },
   { number: "02", name: "BRON FYSIOTHERAPIE", sector: "Zorg" },
@@ -6,6 +8,12 @@ const projects = [
   { number: "05", name: "FLORA CATERING", sector: "Horeca" },
   { number: "06", name: "STAAL ARCHITECTEN", sector: "Architectuur" },
 ];
+
+export const metadata: Metadata = {
+  title: "Ons Werk — Ruberio Portfolio | High-End Webdesign",
+  description:
+    "Bekijk het werk van Ruberio. Elk project een statement. Geen templates, geen compromissen.",
+};
 
 export default function WerkPage() {
   return (
@@ -23,7 +31,7 @@ export default function WerkPage() {
         {projects.map((project) => (
           <article
             key={project.number}
-            className="group relative border border-white/10 bg-black p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#ff3300]"
+            className="group relative border border-white/10 bg-black p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#ff3300] [will-change:transform]"
           >
             <div className="absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-[#ff3300]" />
             <div className="absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-[#ff3300]" />

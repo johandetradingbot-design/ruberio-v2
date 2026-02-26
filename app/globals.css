@@ -11,7 +11,7 @@
   pointer-events: none;
   z-index: 9997;
   opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAAAAACPAi4CAAABQ0lEQVR42mNwuSxWu2P7Ksac23VHE+wnnZzy+Bkvx/GqiXte+4Vu8E+KfPJ529yI616KPL/lnjLEG700YW7TXfFcamMM97vSgHymSoYW4bC9P76/clwjvY91Qf0lzivKar4e7Lsu/tHum/qhf9FMFeNvd2eIdyX6WMepOswv0ixxPpb7Qj3q4xxvva0T1jvtZDgSPO2vhblW45vof64P9gt5iiSn9Xa4/xK0yT531eD8o5spxWayN8JPLeypnpfacH9T5pZmtrUa6bMM73Tnfb3wvuknA8vka7YV5VkHdWbbtSr8D+oMWbzs7Il2q8Ca1XyiBfxKkks2l8VKTOd6eGb3vaUH5D+t/HLY7W3G8luFMqfXmQroH7JkGA2D0TAYDYPRMBgNg9EwGA2D0TAYDYPRMBgNg9EwGA2D0TAYDQO8YQAAH0T4al1pCE0AAAAASUVORK5CYII=");
   background-repeat: repeat;
-  background-size: 200px 200px;
+  background-size: 180px 180px;
 }

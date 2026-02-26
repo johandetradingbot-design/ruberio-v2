@@ -6,7 +6,12 @@ export default function Nav() {
   return (
     <nav
       className="pointer-events-none fixed z-50 flex w-full items-start justify-between px-4 py-6 md:px-8"
-      style={{ mixBlendMode: "difference" }}
+      style={{
+        mixBlendMode: "difference",
+        transform: "translateZ(0)",
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+      }}
     >
       <Link
         href="/"
