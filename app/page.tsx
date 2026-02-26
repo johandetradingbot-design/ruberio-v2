@@ -44,6 +44,9 @@ export default function Home() {
   const lineRefs = useRef<Array<HTMLElement | null>>([]);
   const subtitleRef = useRef<HTMLParagraphElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const dienstenRef = useRef<HTMLDivElement | null>(null);
+  const dienstenHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     lineRefs.current.forEach((line, index) => {
@@ -85,11 +88,48 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const updateDiensten = () => {
+      if (!dienstenRef.current) return;
+
+      const sectionTop = dienstenRef.current.offsetTop;
+      const scrollZone = window.innerHeight;
+      const relativeScroll = window.scrollY - sectionTop;
+      const progress = Math.max(0, Math.min(1, relativeScroll / scrollZone));
+
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
+
+        const start = index * 0.33;
+        const cardProgress = Math.max(0, Math.min(1, (progress - start) / 0.34));
+        const translateY = (1 - cardProgress) * 100;
+        card.style.transform = `translate3d(0, ${translateY}vh, 0)`;
+      });
+
+      if (dienstenHeadingRef.current) {
+        const headingProgress = Math.max(0, Math.min(1, progress / 0.34));
+        const headingTranslate = (1 - headingProgress) * 40;
+
+        dienstenHeadingRef.current.style.opacity = `${headingProgress}`;
+        dienstenHeadingRef.current.style.transform = `translate3d(0, ${headingTranslate}px, 0)`;
+      }
+    };
+
+    updateDiensten();
+    window.addEventListener("scroll", updateDiensten, { passive: true });
+    window.addEventListener("resize", updateDiensten);
+
+    return () => {
+      window.removeEventListener("scroll", updateDiensten);
+      window.removeEventListener("resize", updateDiensten);
+    };
+  }, []);
+
   return (
-    <main className="bg-black text-white font-mono font-[var(--font-mono)]">
-      <section className="relative h-[300vh] bg-black">
+    <main className="overflow-x-hidden bg-black text-white font-mono font-[var(--font-mono)]">
+      <section className="relative h-[300vh] overflow-hidden bg-black">
         <div
-          className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden"
+          className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden overflow-x-hidden"
           style={{ transform: "translateZ(0)", willChange: "transform", backfaceVisibility: "hidden" }}
         >
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
@@ -98,7 +138,7 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="relative z-10 px-4 text-center">
+          <div className="relative z-10 w-full overflow-x-hidden px-4 text-center">
             <div className="overflow-hidden">
               <h1
                 ref={(node) => {
@@ -168,26 +208,36 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative z-30 bg-black px-4 py-32 md:px-8">
-        <h2 className="mb-16 font-syne font-[var(--font-syne)] text-5xl md:text-6xl font-extrabold uppercase tracking-[-0.04em] leading-[0.85]">
-          DIENSTEN.
-        </h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className="relative border border-white/10 p-8 transition-transform duration-300 hover:-translate-y-2 [will-change:transform]"
-            >
-              <div className="absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 border-[#ff3300]" />
-              <div className="absolute right-0 bottom-0 h-4 w-4 border-r-2 border-b-2 border-[#ff3300]" />
-              <h3 className="mb-4 font-syne font-[var(--font-syne)] text-3xl font-extrabold uppercase tracking-[-0.04em] leading-[0.85]">
-                {service.title}
-              </h3>
-              <p className="font-mono text-sm text-white/70">{service.copy}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <div ref={dienstenRef} className="relative z-30 h-[200vh] bg-black">
+        <section className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden px-4 py-16 md:px-8">
+          <h2
+            ref={dienstenHeadingRef}
+            className="mb-16 font-syne font-[var(--font-syne)] text-5xl font-extrabold leading-[0.85] tracking-[-0.04em] uppercase md:text-6xl"
+            style={{ opacity: 0, transform: "translate3d(0, 40px, 0)", willChange: "transform, opacity" }}
+          >
+            DIENSTEN.
+          </h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {services.map((service, index) => (
+              <div
+                key={service.title}
+                ref={(node) => {
+                  cardRefs.current[index] = node;
+                }}
+                className="relative border border-white/10 p-8 transition-colors duration-300 hover:border-[#ff3300] [will-change:transform]"
+                style={{ transform: "translate3d(0, 100vh, 0)", willChange: "transform" }}
+              >
+                <div className="absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 border-[#ff3300]" />
+                <div className="absolute right-0 bottom-0 h-4 w-4 border-r-2 border-b-2 border-[#ff3300]" />
+                <h3 className="mb-4 font-syne font-[var(--font-syne)] text-3xl font-extrabold leading-[0.85] tracking-[-0.04em] uppercase">
+                  {service.title}
+                </h3>
+                <p className="font-mono text-sm text-white/70">{service.copy}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
 
       <section className="relative z-30 bg-black px-4 py-32 md:px-8">
         <h2 className="mb-0 font-syne font-[var(--font-syne)] text-5xl font-extrabold uppercase tracking-[-0.04em] leading-[0.85]">
@@ -217,10 +267,10 @@ export default function Home() {
         <div className="relative w-full max-w-4xl border border-white/20 p-8 md:p-16">
           <div className="absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 border-[#ff3300]" />
           <div className="absolute right-0 bottom-0 h-4 w-4 border-r-2 border-b-2 border-[#ff3300]" />
-          <p className="mb-12 font-mono text-xs tracking-[0.2em] uppercase text-[#ff3300]">
+          <p className="mb-6 font-mono text-xs tracking-[0.2em] uppercase text-[#ff3300]">
             System Status: Ready
           </p>
-          <h2 className="mb-12 font-syne font-[var(--font-syne)] text-5xl md:text-7xl font-extrabold leading-[0.9] uppercase tracking-[-0.04em]">
+          <h2 className="mb-8 font-syne font-[var(--font-syne)] text-5xl md:text-7xl font-extrabold leading-[0.9] uppercase tracking-[-0.04em]">
             KLAAR OM TE
             <br />
             <span className="text-white/30">DOMINEREN.</span>

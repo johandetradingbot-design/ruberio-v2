@@ -49,20 +49,20 @@ export default function ContactClient() {
   };
 
   const fieldClassName =
-    "w-full border border-white/20 bg-transparent px-4 py-3 font-mono text-sm text-white outline-none transition-colors placeholder:text-white/20 focus:border-[#ff3300]";
+    "w-full border border-white/20 bg-transparent px-4 py-3 font-mono text-base text-white outline-none transition-colors placeholder:text-white/20 focus:border-[#ff3300]";
 
   return (
     <main className="bg-black px-4 pb-24 pt-32 text-white md:px-8">
       <section className="mx-auto max-w-6xl">
-        <h1 className="font-syne text-[16vw] font-extrabold uppercase leading-[0.85] tracking-[-0.04em] md:text-[11vw]">
+        <h1 className="mb-8 font-syne text-[16vw] font-extrabold uppercase leading-[0.85] tracking-[-0.04em] md:text-[11vw]">
           INITIEER CONTACT.
         </h1>
-        <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-white/60">
+        <p className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-white/60">
           System Status: Accepting Connections
         </p>
       </section>
 
-      <section className="mx-auto mt-16 max-w-3xl">
+      <section className="mx-auto max-w-3xl">
         <div className="relative border border-white/20 p-6 md:p-10">
           <div className="absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-[#ff3300]" />
           <div className="absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-[#ff3300]" />

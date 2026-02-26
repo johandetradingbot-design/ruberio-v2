@@ -28,7 +28,7 @@ export default function WerkPage() {
       </section>
 
       <section className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <article
             key={project.number}
             className="group relative border border-white/10 bg-black p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#ff3300] [will-change:transform]"
@@ -44,7 +44,27 @@ export default function WerkPage() {
             </h2>
             <p className="mt-5 font-mono text-xs uppercase tracking-[0.2em] text-white/70">{project.sector}</p>
             <p className="mt-2 font-mono text-xs text-white/60">High-end website / SEO Content</p>
-            <div className="mt-8 aspect-[16/10] w-full border border-white/10 bg-zinc-900 transition-colors duration-300 group-hover:border-[#ff3300]/60" />
+            <div className="relative mt-8 aspect-video w-full overflow-hidden border border-white/10 bg-[#0a0a0a] transition-colors duration-300 group-hover:border-[#ff3300]/60">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px)",
+                }}
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-4 text-center">
+                <span className="font-mono text-[10px] tracking-[0.3em] text-[#ff3300] uppercase">
+                  {index % 2 === 0 ? "[CLASSIFIED]" : "[COMING SOON]"}
+                </span>
+                <span className="font-syne text-2xl font-extrabold uppercase tracking-tight text-white/30 md:text-3xl">
+                  {project.name}
+                </span>
+              </div>
+              <div className="absolute left-2 top-2 h-3 w-3 border-l border-t border-[#ff3300]" />
+              <div className="absolute right-2 top-2 h-3 w-3 border-r border-t border-[#ff3300]" />
+              <div className="absolute bottom-2 left-2 h-3 w-3 border-b border-l border-[#ff3300]" />
+              <div className="absolute bottom-2 right-2 h-3 w-3 border-b border-r border-[#ff3300]" />
+            </div>
           </article>
         ))}
       </section>
